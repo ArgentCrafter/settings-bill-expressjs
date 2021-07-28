@@ -14,15 +14,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.render('index', {
-        settings: settingsBill.getSettings(),
-        totals: settingsBill.totals()
-    });
-    let tempTotals = settingsBill.totals();
-    console.log(tempTotals);
-    // if () {
-        // 
-    // }
+    let warningLevelCheck = settingsBill.hasReachedWarningLevel();
+    let criticalLevelCheck = settingsBill.hasReachedCriticalLevel();
+    if (criticalLevelCheck) {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+            class: "danger"
+        });
+    } else if (warningLevelCheck) {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+            class: "warning"
+        });
+    } else {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+        });
+
+    }
 });
 
 app.get('/actions', function (req, res) {
@@ -49,9 +61,13 @@ app.post('/settings', function (req, res) {
 });
 
 app.post('/action', function (req, res) {
-
-    settingsBill.recordAction(req.body.actionType);
-    res.redirect('/')
+    if (settingsBill.hasReachedCriticalLevel()) {
+        console.log('Critical level reached, cannot increase cost any further');
+        res.redirect('/')
+    } else {
+        settingsBill.recordAction(req.body.actionType);
+        res.redirect('/')
+    }
 });
 
 const PORT = process.env.PORT || 3011;
