@@ -18,6 +18,11 @@ app.get('/', function (req, res) {
         settings: settingsBill.getSettings(),
         totals: settingsBill.totals()
     });
+    let tempTotals = settingsBill.totals();
+    console.log(tempTotals);
+    // if () {
+        // 
+    // }
 });
 
 app.get('/actions', function (req, res) {
