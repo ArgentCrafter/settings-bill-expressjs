@@ -11,7 +11,7 @@ describe('Settings Bill Factory:', () => {
         SettingsBill.recordAction('call');
 
         assert.deepEqual(SettingsBill.totals(), { callTotal: 20, grandTotal: 25, smsTotal: 5 });
-        console.log(SettingsBill.totals();
+        console.log(SettingsBill.totals());
     })
     it('hasReachedWarningLevel function, warning level is not reached', () => {
         let SettingsBill = settingsBill();
