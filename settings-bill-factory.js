@@ -7,6 +7,13 @@ module.exports = function SettingsBill() {
 
     let actionList = [];
 
+    function setTestSettings (sms, call, warning, critical) {
+        smsCost = sms;
+        callCost = call;
+        warningLevel = warning;
+        criticalLevel = critical;
+    }
+
     function setSettings (settings) {
         smsCost = Number(settings.smsCost);
         callCost = Number(settings.callCost);
@@ -38,6 +45,10 @@ module.exports = function SettingsBill() {
             cost,
             timestamp: new Date()
         });
+    }
+
+    function clearActions() {
+        actionList = [];
     }
 
     function actions(){
@@ -98,8 +109,10 @@ module.exports = function SettingsBill() {
 
     return {
         setSettings,
+        setTestSettings,
         getSettings,
         recordAction,
+        clearActions,
         actions,
         actionsFor,
         totals,

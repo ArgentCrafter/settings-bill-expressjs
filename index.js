@@ -2,6 +2,7 @@ const express = require('express');
 const exphba = require('express-handlebars');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill-factory');
+const alert = require('alert');
 
 const app = express();
 const settingsBill = SettingsBill();
@@ -14,15 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    let warningLevelCheck = settingsBill.hasReachedWarningLevel();
-    let criticalLevelCheck = settingsBill.hasReachedCriticalLevel();
-    if (criticalLevelCheck) {
+    if (settingsBill.hasReachedCriticalLevel()) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
             class: "danger"
         });
-    } else if (warningLevelCheck) {
+    } else if (settingsBill.hasReachedWarningLevel()) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
@@ -38,15 +37,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/actions', function (req, res) {
-
     res.render('actions', { actions: settingsBill.actions() });
-
 });
 
 app.get('/actions/:type', function (req, res) {
     const actionType = req.params.type;
     res.render('actions', { actions: settingsBill.actionsFor(actionType) });
-
 });
 
 app.post('/settings', function (req, res) {
@@ -60,9 +56,15 @@ app.post('/settings', function (req, res) {
     res.redirect('/');
 });
 
+app.post('/reset', function (req, res) {
+    settingsBill.clearActions();
+
+    res.redirect('/');
+})
+
 app.post('/action', function (req, res) {
     if (settingsBill.hasReachedCriticalLevel()) {
-        console.log('Critical level reached, cannot increase cost any further');
+        alert('Critical value has been reached.')
         res.redirect('/')
     } else {
         settingsBill.recordAction(req.body.actionType);

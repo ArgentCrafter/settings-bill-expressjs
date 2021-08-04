@@ -20,3 +20,18 @@
     font-weight: bold;
     font-size: 2em;
   }
+
+  .popupCrit {
+    border: darkred 3px solid;
+    border-radius: 10px;
+    background-color: crimson;
+    display: none;
+    position: fixed;
+    top: 48%;
+    left: 30%;
+    margin: 0 0 0 0;
+  }
+
+  .popupCrit p {
+    margin: 10px 10px 10px 10px;
+  }

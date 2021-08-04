@@ -22,9 +22,7 @@
               prevent any new costs from being added. The warning and critical
               level should both be configurable now.</i>
           </div>
-
           <hr />
-
           <div class="row">
             <div class="six columns">
               <h5>Bill type</h5>
@@ -51,33 +49,40 @@
                   Add
                 </button>
               </form>
-              <h5>Totals</h5>
-              <table>
-                <tr>
-                  <td>
-                    <a href="/actions/call">Call total</a>
-                  </td>
-                  <td><span
-                      class="callTotalSettings"
-                    >R{{totals.callTotal}}</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="/actions/sms">SMS total</a>
-                  </td>
-                  <td><span
-                      class="smsTotalSettings"
-                    >R{{totals.smsTotal}}</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="/actions">Total</a>
-                  </td>
-                  <td><span
-                      class="totalSettings {{class}}"
-                    >R{{totals.grandTotal}}</span></td>
-                </tr>
-              </table>
+              <form action="/reset" method="POST">
+                <h5>Totals</h5>
+                <table>
+                  <tr>
+                    <td>
+                      <a href="/actions/call">Call total</a>
+                    </td>
+                    <td><span
+                        class="callTotalSettings"
+                      >R{{totals.callTotal}}</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="/actions/sms">SMS total</a>
+                    </td>
+                    <td><span
+                        class="smsTotalSettings"
+                      >R{{totals.smsTotal}}</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="/actions">Total</a>
+                    </td>
+                    <td><span
+                        class="totalSettings {{class}}"
+                      >R{{totals.grandTotal}}</span></td>
+                  </tr>
+                </table>
+                <button
+                  class="button-primary"
+                  type="submit"
+                  name="reset"
+                >Reset</button>
+              </form>
             </div>
             <div class="six columns">
               <h5>Settings</h5>
@@ -128,6 +133,11 @@
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <form class="popupCrit" name="popupCrit">
+          <p>The critical amount has been reached, no more bills may be added.</p>
+        </form>
       </div>
     </div>
   </body>
