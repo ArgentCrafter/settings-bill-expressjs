@@ -2,7 +2,7 @@ let assert = require('assert');
 let settingsBill = require('../settings-bill-factory');
 
 describe('Settings Bill Factory:', () => {
-    it('totals function', () => {
+    it('totals function, correct total is displayed', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
@@ -12,7 +12,7 @@ describe('Settings Bill Factory:', () => {
 
         assert.deepEqual(SettingsBill.totals(), { callTotal: 20, grandTotal: 25, smsTotal: 5 });
     })
-    it('hasReachedWarningLevel function, conditions not met', () => {
+    it('hasReachedWarningLevel function, warning level is not reached', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
@@ -22,7 +22,7 @@ describe('Settings Bill Factory:', () => {
 
         assert.equal(SettingsBill.hasReachedWarningLevel(), false);
     })
-    it('hasReachedWarningLevel function, conditions met', () => {
+    it('hasReachedWarningLevel function, warning level is reached', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
@@ -31,7 +31,7 @@ describe('Settings Bill Factory:', () => {
 
         assert.equal(SettingsBill.hasReachedWarningLevel(), true);
     })
-    it('hasReachedCriticalLevel function, conditions not met', () => {
+    it('hasReachedCriticalLevel function, ccritical level is not reached', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
@@ -40,7 +40,7 @@ describe('Settings Bill Factory:', () => {
 
         assert.equal(SettingsBill.hasReachedCriticalLevel(), false);
     })
-    it('hasReachedCriticalLevel function, conditions met', () => {
+    it('hasReachedCriticalLevel function, critical level is reached', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
@@ -51,7 +51,7 @@ describe('Settings Bill Factory:', () => {
 
         assert.equal(SettingsBill.hasReachedCriticalLevel(), true);
     })
-    it('actions function', () => {
+    it('actions function, correct cost, type, and timestamp', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
