@@ -1,4 +1,5 @@
 let assert = require('assert');
+const moment = require("moment");
 let settingsBill = require('../settings-bill-factory');
 
 describe('Settings Bill Factory:', () => {
