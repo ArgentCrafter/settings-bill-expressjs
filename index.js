@@ -19,18 +19,21 @@ app.get('/', function (req, res) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
-            class: "danger"
+            class: "danger",
+            display: "block"
         });
     } else if (settingsBill.hasReachedWarningLevel()) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
-            class: "warning"
+            class: "warning",
+            display: "none"
         });
     } else {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
+            display: "none"
         });
 
     }
@@ -58,18 +61,15 @@ app.post('/settings', function (req, res) {
 
 app.post('/reset', function (req, res) {
     settingsBill.clearActions();
-
     res.redirect('/');
 })
 
 app.post('/action', function (req, res) {
-    if (settingsBill.hasReachedCriticalLevel()) {
-        alert('Critical value has been reached.')
-        res.redirect('/')
-    } else {
-        settingsBill.recordAction(req.body.actionType);
-        res.redirect('/')
+    if (req.body.actionType) {
+    settingsBill.recordAction(req.body.actionType);
     }
+    console.log(req.body.actionType);
+    res.redirect('/');
 });
 
 const PORT = process.env.PORT || 3011;
