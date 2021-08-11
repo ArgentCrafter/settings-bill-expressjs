@@ -62,7 +62,7 @@ describe('Settings Bill Factory:', () => {
         SettingsBill.setTestSettings(5, 10, 15, 20);
         SettingsBill.recordAction('sms');
 
-        assert.deepEqual(SettingsBill.actions(), [{  cost: 5,  timestamp: new Date(),  type: 'sms'}]);
+        assert.deepEqual(SettingsBill.actions(), [{  cost: 5,  timestamp: moment().format('Do MMM YYYY, hh:mm:ss a'),  type: 'sms'}]);
         console.log(SettingsBill.actions());
     })
 })
