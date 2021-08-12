@@ -45,7 +45,7 @@ module.exports = function SettingsBill() {
         actionList.push({
             type: action,
             cost,
-            timestamp: moment().format('Do MMM YYYY, hh:mm:ss a')
+            timestamp: moment()
         });
     }
 

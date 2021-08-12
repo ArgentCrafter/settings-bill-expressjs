@@ -2,7 +2,7 @@ const express = require('express');
 const exphba = require('express-handlebars');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill-factory');
-const alert = require('alert');
+const moment = require('moment')
 
 const app = express();
 const settingsBill = SettingsBill();
@@ -40,11 +40,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/actions', function (req, res) {
+
+    settingsBill.actions().forEach((value) => {
+        value.timestampago = moment(value.timestamp).fromNow()
+    })
+
     res.render('actions', { actions: settingsBill.actions() });
 });
 
 app.get('/actions/:type', function (req, res) {
     const actionType = req.params.type;
+
+    settingsBill.actionsFor(actionType).forEach((value) => {
+        value.timestampago = moment(value.timestamp).fromNow()
+    })
+
     res.render('actions', { actions: settingsBill.actionsFor(actionType) });
 });
 
@@ -65,10 +75,9 @@ app.post('/reset', function (req, res) {
 })
 
 app.post('/action', function (req, res) {
-    if (req.body.actionType) {
+    if (req.body.actionType && !settingsBill.hasReachedCriticalLevel()) {
     settingsBill.recordAction(req.body.actionType);
     }
-    console.log(req.body.actionType);
     res.redirect('/');
 });
 
