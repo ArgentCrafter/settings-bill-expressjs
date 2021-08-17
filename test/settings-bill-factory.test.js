@@ -56,8 +56,9 @@ describe('Settings Bill Factory:', () => {
         let SettingsBill = settingsBill();
 
         SettingsBill.setTestSettings(5, 10, 15, 20);
+        let pointTime = moment();
         SettingsBill.recordAction('sms');
 
-        assert.deepEqual(SettingsBill.actions(), [{  cost: 5,  timestamp: moment(),  type: 'sms'}]);
+        assert.deepEqual(SettingsBill.actions(), [{  cost: 5,  timestamp: pointTime,  type: 'sms'}]);
     })
 })
