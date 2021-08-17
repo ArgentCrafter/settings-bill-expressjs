@@ -15,28 +15,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    if (settingsBill.hasReachedCriticalLevel()) {
-        res.render('index', {
-            settings: settingsBill.getSettings(),
-            totals: settingsBill.totals(),
-            class: "danger",
-            display: "block"
-        });
-    } else if (settingsBill.hasReachedWarningLevel()) {
-        res.render('index', {
-            settings: settingsBill.getSettings(),
-            totals: settingsBill.totals(),
-            class: "warning",
-            display: "none"
-        });
-    } else {
-        res.render('index', {
-            settings: settingsBill.getSettings(),
-            totals: settingsBill.totals(),
-            display: "none"
-        });
-
-    }
+    res.render('index', {
+        settings: settingsBill.getSettings(),
+        totals: settingsBill.totals(),
+        style: settingsBill.colorClass()
+    })
 });
 
 app.get('/actions', function (req, res) {
@@ -76,7 +59,7 @@ app.post('/reset', function (req, res) {
 
 app.post('/action', function (req, res) {
     if (req.body.actionType && !settingsBill.hasReachedCriticalLevel()) {
-    settingsBill.recordAction(req.body.actionType);
+        settingsBill.recordAction(req.body.actionType);
     }
     res.redirect('/');
 });

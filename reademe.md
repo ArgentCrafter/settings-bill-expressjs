@@ -1,0 +1,1 @@
+[![Build Status](https://app.travis-ci.com/ArgentCrafter/settings-bill-expressjs.svg?branch=gh-pages)](https://app.travis-ci.com/ArgentCrafter/settings-bill-expressjs)
